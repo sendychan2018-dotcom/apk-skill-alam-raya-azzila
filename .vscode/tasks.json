@@ -1,0 +1,277 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Flutter: Run App",
+			"type": "shell",
+			"command": "C:\\src\\flutter\\bin\\flutter.bat",
+			"args": [
+				"run"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Flutter: Run on Emulator 5554",
+			"type": "shell",
+			"command": "C:\\src\\flutter\\bin\\flutter.bat",
+			"args": [
+				"run",
+				"-d",
+				"emulator-5554"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Flutter: Enable Android Target",
+			"type": "shell",
+			"command": "C:\\src\\flutter\\bin\\flutter.bat",
+			"args": [
+				"create",
+				".",
+				"--platforms",
+				"android"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Android: Start Pixel 35 x86_64",
+			"type": "shell",
+			"command": "C:\\Users\\ASUS\\AppData\\Local\\Android\\sdk\\emulator\\emulator.exe",
+			"args": [
+				"-avd",
+				"Pixel_35_x86_64"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Flutter: List Devices",
+			"type": "shell",
+			"command": "C:\\src\\flutter\\bin\\flutter.bat",
+			"args": [
+				"devices"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Flutter: Wait for Android Device",
+			"type": "shell",
+			"command": "C:\\src\\flutter\\bin\\flutter.bat",
+			"args": [
+				"devices",
+				"--device-timeout",
+				"60"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Flutter: Run on Pixel x64",
+			"type": "shell",
+			"command": "C:\\src\\flutter\\bin\\flutter.bat",
+			"args": [
+				"run",
+				"-d",
+				"emulator-5556",
+				"--device-timeout",
+				"120"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Flutter: Confirm Emulator Online",
+			"type": "shell",
+			"command": "C:\\src\\flutter\\bin\\flutter.bat",
+			"args": [
+				"devices",
+				"--device-timeout",
+				"120"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Android: Check emulator state",
+			"type": "shell",
+			"command": "C:\\Users\\ASUS\\AppData\\Local\\Android\\sdk\\platform-tools\\adb.exe",
+			"args": [
+				"devices",
+				"-l"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Android: Inspect emulator process",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-CimInstance Win32_Process -Filter \"name='emulator.exe'\" | Select-Object ProcessId,CommandLine | Format-List"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Android: Stop x86_64 emulator",
+			"type": "shell",
+			"command": "C:\\Users\\ASUS\\AppData\\Local\\Android\\sdk\\platform-tools\\adb.exe",
+			"args": [
+				"-s",
+				"emulator-5556",
+				"emu",
+				"kill"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Android: Cold boot x86_64 emulator",
+			"type": "shell",
+			"command": "C:\\Users\\ASUS\\AppData\\Local\\Android\\sdk\\emulator\\emulator.exe",
+			"args": [
+				"-avd",
+				"Pixel_35_x86_64",
+				"-no-snapshot-load",
+				"-no-snapshot-save",
+				"-verbose"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Flutter: Verify cold-booted device",
+			"type": "shell",
+			"command": "C:\\src\\flutter\\bin\\flutter.bat",
+			"args": [
+				"devices",
+				"--device-timeout",
+				"120"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Android: Check boot state",
+			"type": "shell",
+			"command": "C:\\Users\\ASUS\\AppData\\Local\\Android\\sdk\\platform-tools\\adb.exe",
+			"args": [
+				"-s",
+				"emulator-5556",
+				"shell",
+				"getprop",
+				"sys.boot_completed"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Android: Check device state",
+			"type": "shell",
+			"command": "C:\\Users\\ASUS\\AppData\\Local\\Android\\sdk\\platform-tools\\adb.exe",
+			"args": [
+				"devices",
+				"-l"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Android: Restart ADB server",
+			"type": "shell",
+			"command": "C:\\Users\\ASUS\\AppData\\Local\\Android\\sdk\\platform-tools\\adb.exe",
+			"args": [
+				"kill-server"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Android: Start ADB server",
+			"type": "shell",
+			"command": "C:\\Users\\ASUS\\AppData\\Local\\Android\\sdk\\platform-tools\\adb.exe",
+			"args": [
+				"start-server"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Android: Verify after ADB restart",
+			"type": "shell",
+			"command": "C:\\Users\\ASUS\\AppData\\Local\\Android\\sdk\\platform-tools\\adb.exe",
+			"args": [
+				"devices",
+				"-l"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Flutter: Enable Web Target",
+			"type": "shell",
+			"command": "C:\\src\\flutter\\bin\\flutter.bat",
+			"args": [
+				"create",
+				".",
+				"--platforms=android,web"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Flutter: Run on Chrome",
+			"type": "shell",
+			"command": "C:\\src\\flutter\\bin\\flutter.bat",
+			"args": [
+				"run",
+				"-d",
+				"chrome"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Flutter: Inspect web port",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-NetTCPConnection -State Listen | Select-Object LocalAddress,LocalPort,OwningProcess"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Flutter: Inspect app processes",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name dart,flutter,chrome -ErrorAction SilentlyContinue | Select-Object Id,ProcessName,Path"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Flutter: Inspect Dart processes",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-CimInstance Win32_Process | Where-Object { $_.Name -eq 'dart.exe' } | Select-Object ProcessId,CommandLine | Format-List"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}
