@@ -1,4 +1,5 @@
 import 'package:alam_raya_azzila/screens/home_page.dart';
+import 'package:alam_raya_azzila/screens/registration_page.dart';
 import 'package:alam_raya_azzila/services/auth_service.dart';
 import 'package:alam_raya_azzila/widgets/custom_text_field.dart';
 import 'package:alam_raya_azzila/widgets/primary_button.dart';
@@ -7,7 +8,9 @@ import 'package:flutter/material.dart';
 const _forest = Color(0xFF087445);
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final String initialUsername;
+
+  const LoginPage({super.key, this.initialUsername = ''});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -18,6 +21,12 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
   bool _rememberMe = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _usernameController.text = widget.initialUsername;
+  }
 
   @override
   void dispose() {
@@ -46,6 +55,21 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
     }
+  }
+
+  Future<void> _openRegistration() async {
+    final identifier = await Navigator.push<String>(
+      context,
+      MaterialPageRoute(builder: (_) => const RegistrationPage()),
+    );
+    if (!mounted || identifier == null) return;
+
+    _usernameController.text = identifier;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Pendaftaran berhasil. Silakan masuk dengan akun baru.'),
+      ),
+    );
   }
 
   @override
@@ -224,25 +248,36 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             const SizedBox(height: 12),
-                            Center(
-                              child: RichText(
-                                text: const TextSpan(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Belum punya akun?',
                                   style: TextStyle(
                                     fontSize: 11,
                                     color: Color(0xFF687880),
                                   ),
-                                  children: [
-                                    TextSpan(text: 'Belum punya akun? '),
-                                    TextSpan(
-                                      text: 'Daftar',
-                                      style: TextStyle(
-                                        color: _forest,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
                                 ),
-                              ),
+                                TextButton(
+                                  onPressed: _openRegistration,
+                                  style: TextButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 5,
+                                    ),
+                                    minimumSize: Size.zero,
+                                    tapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                  ),
+                                  child: const Text(
+                                    'Daftar',
+                                    style: TextStyle(
+                                      color: _forest,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),

@@ -1,4 +1,5 @@
 import 'package:alam_raya_azzila/models/user_model.dart';
+import 'package:alam_raya_azzila/screens/login_page.dart';
 import 'package:alam_raya_azzila/screens/profile_page.dart';
 import 'package:flutter/material.dart';
 
@@ -92,7 +93,7 @@ class _HomeTab extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(18, 18, 18, 24),
           sliver: SliverList(
             delegate: SliverChildListDelegate([
-              const _SectionTitle(title: 'Dasbor'),
+              const _SectionTitle(title: 'Home'),
               const SizedBox(height: 10),
               _TrainingBanner(
                 onTap: () => _showMessage(context, 'Jadwal latihan'),
@@ -184,6 +185,32 @@ class _DashboardHeader extends StatelessWidget {
 
   const _DashboardHeader({required this.username});
 
+  Future<void> _confirmLogout(BuildContext context) async {
+    final shouldLogout = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Keluar dari akun?'),
+        content: const Text('Anda akan kembali ke halaman login.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Batal'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Keluar'),
+          ),
+        ],
+      ),
+    );
+
+    if (shouldLogout != true || !context.mounted) return;
+    await Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const LoginPage()),
+      (route) => false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -226,10 +253,16 @@ class _DashboardHeader extends StatelessWidget {
           ),
           IconButton(
             onPressed: () => _showMessage(context, 'Tidak ada notifikasi baru'),
+            tooltip: 'Notifikasi',
             icon: const Icon(
               Icons.notifications_none_rounded,
               color: Colors.white,
             ),
+          ),
+          IconButton(
+            onPressed: () => _confirmLogout(context),
+            tooltip: 'Keluar',
+            icon: const Icon(Icons.logout_rounded, color: Colors.white),
           ),
         ],
       ),
